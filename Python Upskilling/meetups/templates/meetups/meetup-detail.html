@@ -1,0 +1,21 @@
+{% extends 'meetups/layouts/main-layout.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     {% block title %} Meetup Details {% endblock %}
+     {% block css %}
+        <link rel="stylesheet" href="{% static '/meetups/styles/all-meetups.css' %}">
+     {% endblock %}
+</head>
+<body>
+    {% block main_content %}
+        <h1>{{meetup_detail.title}}</h1>
+        <h4>{{meetup_detail.location}}</h4>
+        <h4>{{meetup_detail.slug}}</h4>
+    {% endblock %}
+</body>
+</html>

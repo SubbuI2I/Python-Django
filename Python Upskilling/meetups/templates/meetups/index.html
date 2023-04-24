@@ -1,0 +1,50 @@
+{% extends 'meetups/layouts/main-layout.html' %}
+{% load static %}
+    {% block title %}  Meet-ups !!! {% endblock %}
+    {% block css %}
+    <link rel="stylesheet" href="{% static '/meetups/styles/all-meetups.css' %}">
+    {% endblock %}
+</head>
+
+<body>
+    <!-- <h1> Meet Ups !!! </h1>
+    {% if show_meetups %}
+    {% for item in meetups %}
+    <h4>{{ item.title }}</h4>
+    {% endfor %}
+    {% else %}
+    <h4> No meetups </h4>
+    {% endif %} -->
+    <header class="meetups-header">
+        <nav><a href="/meetups">Django Meetups</a></nav>
+        <h1>Meetups with details</h1>
+        <p>list of django meetups displays here</p>
+    </header>
+    <main>
+        {% block main_content %} 
+        <section>
+        <h2>Upcoming Meetups</h2>
+        <ol>
+            {% for item in meetups %}
+            <li class="meetups-item">
+                <div class="meetups-summary">
+                    <div class-="meetups-image">
+                        <img src="" alt="{{ item.title  }}" />
+                    </div>
+                    <div class="meetups-details">
+                        <h3>{{ item.title }}</h3>
+                        <location>{{ item.location}}</location>
+                    </div>
+                </div>
+                <div class="meetups-actions">
+                    <a href="{% url 'meetup-details' item.slug %}" class="btn">More Details</a>
+                </div>
+            </li>
+            {% endfor %}
+        </ol>
+    </section>
+    {% endblock %}
+    </main>
+</body>
+
+</html>
