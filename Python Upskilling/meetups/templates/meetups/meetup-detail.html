@@ -2,20 +2,53 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     {% block title %} Meetup Details {% endblock %}
-     {% block css %}
-        <link rel="stylesheet" href="{% static '/meetups/styles/all-meetups.css' %}">
-     {% endblock %}
-</head>
-<body>
-    {% block main_content %}
-        <h1>{{meetup_detail.title}}</h1>
-        <h4>{{meetup_detail.location}}</h4>
-        <h4>{{meetup_detail.slug}}</h4>
+    {% block title %} Meetup Details {% endblock %}
+    {% block css %}
+    <link rel="stylesheet" href="{% static '/meetups/styles/meetup-detail.css' %}">
     {% endblock %}
+</head>
+
+<body>
+    <article>
+        {% block main_content %}
+        {% if meetups_found %}
+        <div class="meetup-details">
+            <h1>{{meetup_detail.title}}</h1>
+            <div class="meetup-summary">
+                {{meetup_detail.location}} 
+            </div>
+            <div class="meetup-image">
+                <img src="{{meetup_detail.image.url}}" alt="{{meetup_detail.title}}">
+            </div>
+        </div>
+        <section id="details">
+            <h2>what's this meetup is about</h2>
+            <p>{{meetup_detail.description}}</p>
+            <footer>
+                <p>Need more details? please <a href="mailto:{{ meetup_detail.organizeremail}}"> contact the organizer </a> </a> </p>
+            </footer>
+        </section>
+        <section id="registration">
+            <h2> Register here ! </h2>
+            <form action="{% url 'meetup-details' meetup_detail.slug %}" method="post">
+                {% csrf_token %}
+                <ul>
+                    {{form.as_ul}}
+                </ul>
+                <div>
+                    <button name="Register">Register</button>
+                </div>
+            </form>
+        </section>
+        {% else %}
+        <p> No meetups found </p>
+        {% endif %}
+        {% endblock %}
+    </article>
 </body>
 </html>
